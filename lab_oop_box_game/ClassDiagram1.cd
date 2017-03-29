@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="lab_oop_box_game.MyGame">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="lab_oop_box_game.MyGame.GameState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MyGame.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="lab_oop_box_game.MyGame.GameComplexity" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MyGame.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EAQAkAADQQEMKiFCACAkCARQIACAAAgSAIAIgAARAA0=</HashCode>
+      <FileName>MyGame.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_cannon" />
+      <Field Name="_cannonballs" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="lab_oop_box_game.Gameobject">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAgAAAAAAAAAAAAAAQQAAAAAAAMAAA=</HashCode>
+      <FileName>gameobject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab_oop_box_game.Program">
+    <Position X="3.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lab_oop_box_game.Record">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>record.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
