@@ -3,8 +3,7 @@
   <Class Name="lab_oop_box_game.MyGame">
     <Position X="1" Y="0.5" Width="1.5" />
     <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
       <Enum Name="lab_oop_box_game.MyGame.GameState" Collapsed="true">
@@ -25,14 +24,11 @@
     <ShowAsAssociation>
       <Field Name="_cannon" />
       <Field Name="_cannonballs" />
+      <Field Name="_enemies" />
     </ShowAsAssociation>
   </Class>
   <Class Name="lab_oop_box_game.Gameobject">
     <Position X="5" Y="0.5" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAgAAAAAAAAAAAAAAQQAAAAAAAMAAA=</HashCode>
       <FileName>gameobject.cs</FileName>
@@ -47,10 +43,6 @@
   </Class>
   <Class Name="lab_oop_box_game.Record">
     <Position X="7" Y="0.5" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Properties" Collapsed="true" />
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>record.cs</FileName>

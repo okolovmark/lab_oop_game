@@ -16,8 +16,13 @@ namespace lab_oop_box_game
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Gameobject _cannon;
-        private const int MaxCannonBalls = 2;
         private Gameobject[] _cannonballs;
+        private Gameobject[] _enemies;
+        private gameobjser _mycannon;
+        private gameobjser[] _mycannonballs;
+        private gameobjser[] _myenemies;
+        private const int MaxCannonBalls = 2;
+        private savegame mysave;
         private Rectangle _viewportRect;
         private KeyboardState _prev = Keyboard.GetState();
         private const int MaxEnimies = 3;
@@ -25,10 +30,11 @@ namespace lab_oop_box_game
         private const float MinEnemyHeight = 0.5f;
         private const float MaxEnemyVelocity = 5.0f;
         private const float MinEnemyVelocity = 1.0f;
-        private Gameobject[] _enemies;
+        
         private bool _gamepause;
         private bool _canaddhealth = true;
         private bool _saverecord = false;
+        private bool _savegame = false;
         private readonly Random _random = new Random();
         private int _record;
         private int _score;
@@ -189,6 +195,9 @@ namespace lab_oop_box_game
                     _saverecord = false;
                 }
 
+                
+
+
                 if (_prev.IsKeyUp(Keys.Escape) &&
                     Keyboard.GetState().IsKeyDown(Keys.Escape))
                     _gamepause = true;
@@ -246,7 +255,127 @@ namespace lab_oop_box_game
                 }
                 if (_score % 100 != 0 && !_canaddhealth)
                     _canaddhealth = true;
+
+                if (Keyboard.GetState().IsKeyDown(Keys.S))
+                {
+                    _savegame = true;
+                }
+                if (_savegame)
+                {
+                    SaveGame();
+                    _savegame = false;
+                }
+                if (Keyboard.GetState().IsKeyDown(Keys.D))
+                {
+                   
+                    LoadGame();
+
+                    
+                }
             }
+        }
+
+        private void SaveGame()
+        {
+            _gamepause = true;
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream fs = new FileStream("savegame.dat", FileMode.Create))
+            {
+                try
+                {
+                    _mycannon = new gameobjser(_cannon.Position.X, _cannon.Position.Y, _cannon.Center.X,
+                                               _cannon.Center.Y, _cannon.Velocity.X, _cannon.Velocity.Y,
+                                               _cannon.Rotation, _cannon.Alive);
+                    _mycannonballs = new gameobjser[MaxCannonBalls];
+                    for (int i = 0; i < _mycannonballs.Length; i++)
+                    {
+                        _mycannonballs[i] = new gameobjser(_cannonballs[i].Position.X, _cannonballs[i].Position.Y, _cannonballs[i].Center.X,
+                                               _cannonballs[i].Center.Y, _cannonballs[i].Velocity.X, _cannonballs[i].Velocity.Y,
+                                               _cannonballs[i].Rotation, _cannonballs[i].Alive);
+                    }
+                    _myenemies = new gameobjser[MaxEnimies];
+                    for (int i = 0; i < _myenemies.Length; i++)
+                    {
+                        _myenemies[i] = new gameobjser(_enemies[i].Position.X, _enemies[i].Position.Y, _enemies[i].Center.X,
+                                               _enemies[i].Center.Y, _enemies[i].Velocity.X, _enemies[i].Velocity.Y,
+                                               _enemies[i].Rotation, _enemies[i].Alive);
+                    }
+                    mysave = new savegame(_mycannon, _myenemies, _mycannonballs, _score, _health);
+                    formatter.Serialize(fs, mysave);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                }
+
+
+            }
+
+            _gamepause = false;
+        }
+
+        private void LoadGame()
+        {
+            _gamepause = true;
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream fs = new FileStream("savegame.dat", FileMode.Open))
+            {
+                try
+                {
+                    mysave = (savegame)formatter.Deserialize(fs);
+                    _score = mysave._myscore;
+                    _health = mysave._myhealth;
+                    _cannon.Center = new Vector2(mysave._mycannon.Centerx, mysave._mycannon.Centery);
+                    _cannon.Alive = mysave._mycannon.Alive;
+                    _cannon.Position = new Vector2(mysave._mycannon.Positionx, mysave._mycannon.Positiony);
+                    _cannon.Rotation = mysave._mycannon.Rotation;
+                    _cannon.Velocity = new Vector2(mysave._mycannon.Velocityx, mysave._mycannon.Velocityy);
+                    try
+                    {
+                        for (int i = 0; i < MaxCannonBalls; i++)
+                        {
+                            _cannonballs[i].Center = new Vector2(mysave._mycannonballs[i].Centerx,
+                                                                 mysave._mycannonballs[i].Centery);
+                            _cannonballs[i].Alive = mysave._mycannonballs[i].Alive;
+                            _cannonballs[i].Position = new Vector2(mysave._mycannonballs[i].Positionx,
+                                                                   mysave._mycannonballs[i].Positiony);
+                            _cannonballs[i].Rotation = mysave._mycannonballs[i].Rotation;
+                            _cannonballs[i].Velocity = new Vector2(mysave._mycannonballs[i].Velocityx,
+                                                                   mysave._mycannonballs[i].Velocityy);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e);
+                    }
+                    try
+                    {
+                        for (int i = 0; i < MaxEnimies; i++)
+                        {
+                            _enemies[i].Center = new Vector2(mysave._myenemies[i].Centerx,
+                                                             mysave._myenemies[i].Centery);
+                            _enemies[i].Alive = mysave._myenemies[i].Alive;
+                            _enemies[i].Position = new Vector2(mysave._myenemies[i].Positionx,
+                                                               mysave._myenemies[i].Positiony);
+                            _enemies[i].Rotation = mysave._myenemies[i].Rotation;
+                            _enemies[i].Velocity = new Vector2(mysave._myenemies[i].Velocityx,
+                                                               mysave._myenemies[i].Velocityy);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                }
+
+
+            }
+            _gamepause = false;
         }
 
         private void UpdateBalls()
